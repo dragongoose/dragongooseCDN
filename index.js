@@ -24,12 +24,6 @@ app.use(morgan('dev'));
 
 app.use('/',express.static(__dirname + '/uploads'));
 
-
-// index file
-app.get('/', (req, res) => {
-  res.sendFile('test.html', {root: __dirname })
-})
-
 //url shorten
 app.post('/short', function (req, res) {
     console.log(req.body)
