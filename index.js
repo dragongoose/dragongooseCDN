@@ -40,7 +40,7 @@ app.get('/test', function (req,res) {
 app.post('/upload', function (req, res) {
     
     let sampleFile = req.files.sampleFile;
-  	let fileExtension = getExtension(sampleFile.name)
+  	let fileExtension = checks.getExtension(sampleFile.name)
   	let filename = sh.generate() + "." + fileExtension;
 	
 	// check if apikey is valid
@@ -78,9 +78,3 @@ app.use( function(req, res, next) {
 app.listen(config.port, () => {
   console.log(`Example app listening at http://localhost:${config.port}`)
 })
-
-// getExtension
-function getExtension(filename) {
-  var ext = path.extname(filename||'').split('.');
-  return ext[ext.length - 1];
-}

@@ -52,3 +52,4 @@ function ipCheck(ip){
 
 module.exports.meetCriteria = meetCriteria;
 module.exports.ipCheck = ipCheck;
+module.exports.getExtension = getExtension;
