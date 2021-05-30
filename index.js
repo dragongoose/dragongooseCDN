@@ -23,7 +23,7 @@ app.use(morgan({stream: fs.createWriteStream('./logs/' + date + 'access.log', {f
 app.use(morgan('dev'));
 
 app.use('/',express.static(__dirname + '/uploads'));
-
+app.use('/',express.static(__dirname + '/css'))
 app.use('/',express.static(__dirname + '/html'));//make css files available
 
 //url shorten
