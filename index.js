@@ -7,8 +7,8 @@ const expressip = require('express-ip');
 const path = require('path')
 const sh = require('shortid');
 const fs = require('fs');
-const check = require('./checks.js')
-const stats = require('./stats')
+const check = require('./locallib/checks.js')
+const stats = require('./locallib/stats')
 var morgan = require('morgan')
 
 stats.run()
