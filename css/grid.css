@@ -7,7 +7,7 @@
   display: grid;
   height: 100vh;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: 1fr 3fr 1.2fr 1fr;
+  grid-template-rows: 0.5fr 2fr 0.8fr 1fr;
   grid-template-areas:
     "titlebar titlebar titlebar"
     "maincontent maincontent maincontent"
