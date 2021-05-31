@@ -24,7 +24,8 @@ app.use(morgan('dev'));
 
 app.use('/',express.static(__dirname + '/uploads'));
 app.use('/',express.static(__dirname + '/css'))
-app.use('/',express.static(__dirname + '/html'));//make css files available
+app.use('/',express.static(__dirname + '/html'));
+app.use('/assets',express.static(__dirname + '/assets'));
 
 //url shorten
 app.post('/short', function (req, res) {
