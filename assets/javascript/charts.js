@@ -6,10 +6,10 @@ Chart.defaults.global.defaultFontColor = "#df49a6";
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Nov', 'Dec'],
         datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            label: 'Size in MB',
+            data: [100,150,200,500],
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1
@@ -25,7 +25,7 @@ var myChart = new Chart(ctx, {
             },     
             xAxes: [{
                 gridLines: {
-                    display:false
+                    display:true
                 },
                 ticks: {
                     fontFamily: "Open Sans",
@@ -34,7 +34,7 @@ var myChart = new Chart(ctx, {
             }],
             yAxes: [{
                 gridLines: {
-                    display:false
+                    display:true
                 },
                 ticks: {
                     fontFamily: "Open Sans",
