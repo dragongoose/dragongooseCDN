@@ -16,14 +16,11 @@
     "footer footer footer";
   grid-gap: 0.2rem;
   font-weight: 800;
-  text-transform: uppercase;
   font-size: 12px;
-  color: #df49a6;
   text-align: center;
 }
 
 titlebar {
-  background: #595d64;
   grid-area: titlebar;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
@@ -39,6 +36,7 @@ maincontent {
 #content1 {
   background: #595d64;
   grid-area: content1;
+  color: #df49a6;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
