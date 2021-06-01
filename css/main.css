@@ -21,3 +21,11 @@ canvas {
 .chart-container {
   position: relative;
 }
+
+.titleheader {
+  font-size: xx-large;
+  font-family: 'Open Sans';
+  margin-bottom: 2rem;
+  color: #df49a6;
+  text-shadow: 1px 1px 1px #000000;
+}
