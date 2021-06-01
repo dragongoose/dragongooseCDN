@@ -24,17 +24,18 @@ titlebar {
   grid-area: titlebar;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
+  background: #141418;
 }
 
 maincontent {
-  background: #595d64;
+  background: #23232e;
   grid-area: maincontent;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
 
 #content1 {
-  background: #595d64;
+  background: #23232e;
   grid-area: content1;
   color: #df49a6;
   border-radius: var(--main-radius);
@@ -42,21 +43,21 @@ maincontent {
 }
 
 #content2 {
-  background: #595d64;
+  background: #23232e;
   grid-area: content2;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
 
 #content3 {
-  background: #595d64;
+  background: #23232e;
   grid-area: content3;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
 
 footer {
-  background: #595d64;
+  background: #23232e;
   grid-area: footer;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
