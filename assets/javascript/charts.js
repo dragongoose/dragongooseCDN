@@ -43,7 +43,7 @@ var myChart = new Chart(ctx, {
 
             yAxes: [
                 {   
-                    fontFamily: "Open Sans",
+                    gridLines: { display: false },
                     ticks: {
                         fontFamily: "Open Sans",
                         fontStyle: "bold"
