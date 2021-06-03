@@ -33,17 +33,21 @@ var myChart = new Chart(ctx, {
             xAxes: [
                 {
                     gridLines: { display: false },
-                    fontFamily: "Open Sans",
-                    fontStyle: "bold"
+                    ticks: {
+                        fontFamily: "Open Sans",
+                        fontStyle: "bold"
+                    }
                 },
 
             ],
 
             yAxes: [
-                {
-                    gridLines: { display: false },
+                {   
                     fontFamily: "Open Sans",
-                    fontStyle: "bold"
+                    ticks: {
+                        fontFamily: "Open Sans",
+                        fontStyle: "bold"
+                    }
                 },
             ],
         },
