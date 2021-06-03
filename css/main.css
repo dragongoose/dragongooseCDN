@@ -24,8 +24,18 @@ canvas {
 
 .titleheader {
   font-size: xx-large;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   margin-bottom: 2rem;
   color: #df49a6;
   text-shadow: 1px 1px 1px #000000;
+}
+
+.sizechart {
+  background-color: rgba(255, 255, 255, 1);
+  border: px rgba(0, 0, 0, 1) solid;
+  border-radius: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
