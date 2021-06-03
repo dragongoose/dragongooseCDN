@@ -20,6 +20,7 @@ canvas {
 
 .chart-container {
   position: relative;
+  padding-right: 0.5rem;
 }
 
 .titleheader {
