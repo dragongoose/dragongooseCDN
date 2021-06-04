@@ -46,7 +46,7 @@ app.get('/test', function (req,res) {
 app.post('/upload', function (req, res) {
     
     let sampleFile = req.files.sampleFile;
-  	let fileExtension = checks.getExtension(sampleFile.name)
+  	let fileExtension = check.getExtension(sampleFile.name)
   	let filename = sh.generate() + "." + fileExtension;
 	
 	// check if apikey is valid
