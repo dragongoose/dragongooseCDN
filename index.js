@@ -23,6 +23,7 @@ app.use(morgan({stream: fs.createWriteStream('./logs/' + date + 'access.log', {f
 app.use(morgan('dev'));
 
 app.use('/',express.static(__dirname + '/uploads'));
+app.use('/uploads',express.static(__dirname + '/uploads'));
 app.use('/',express.static(__dirname + '/css'))
 app.use('/',express.static(__dirname + '/html'));
 app.use('/assets',express.static(__dirname + '/assets'));
@@ -30,6 +31,10 @@ app.use('/assets',express.static(__dirname + '/assets'));
 //url shorten
 app.post('/short', function (req, res) {
     console.log(req.body)
+});
+
+app.get('/uploads/:tag' , function (req , res) {
+  res.send("tagId is set to " + req.params.tagId);
 });
 
 
