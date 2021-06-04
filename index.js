@@ -34,7 +34,7 @@ app.post('/short', function (req, res) {
 });
 
 app.get('/uploads/:tag' , function (req , res) {
-  res.send("tagId is set to " + req.params.tagId);
+  res.send("tagId is set to " + req.params.tag);
 });
 
 
