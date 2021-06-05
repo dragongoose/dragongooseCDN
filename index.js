@@ -9,7 +9,9 @@ const sh = require('shortid');
 const fs = require('fs');
 const check = require('./locallib/checks.js')
 const stats = require('./locallib/stats')
-var morgan = require('morgan')
+var morgan = require('morgan');
+const { ENOENT } = require('constants');
+const { dirname } = require('path');
 
 stats.run()
 
@@ -22,7 +24,6 @@ app.use(expressip().getIpInfoMiddleware);
 app.use(morgan({ stream: fs.createWriteStream('./logs/' + date + 'access.log', { flags: 'a' }) }));
 app.use(morgan('dev'));
 
-app.use('/', express.static(__dirname + '/uploads'));
 app.use('/', express.static(__dirname + '/css'))
 app.use('/', express.static(__dirname + '/html'));
 app.use('/assets', express.static(__dirname + '/assets'));
@@ -32,48 +33,67 @@ app.post('/short', function (req, res) {
   console.log(req.body)
 });
 
-app.get('/:tag/:tag2', function (req, res) {
-  res.redirect('/uploads/:tag/:tag2');
+app.get('/watch', function (req, res) {
+  res.sendFile(`${__dirname}/html/watch.html`)
 });
 
-app.get('/uploads/:tag/:tag2', function (req, res) {
+app.get('/video/:id', (req, res) => {
   try {
-    if (fs.existsSync(`./uploads/${req.params.tag}/${req.params.tag2}`)) {
-      let fileExtension = check.getExtension(`${__dirname}/uploads/${req.params.tag}/${req.params.tag2}`)
-      if (fileExtension == "mp4") {
+    var fiels = stats.getAllFiles('./uploads', [])
+    if (fiels.indexOf(req.params.id) == -1) return res.sendFile(`${__dirname}/assets/video/unk.mp4`);
+    var fullfiels = stats.getAdvFiles('./uploads', [])
+    let key = stats.getUploadKey(req.params.id, fullfiels)
 
-        const range = req.headers.range;
-        const videoPath = './GraphQL.mp4';
-        const videoSize = fs.statSync(videoPath).size;
+    const range = req.headers.range;
+    const videoPath = `./uploads/${key}/${req.params.id}`;
+    console.log(`AAAA:${key}`);
+    const videoSize = fs.statSync(videoPath).size;
 
-        const chunkSize = 1 * 1e+6;
-        const start = Number(range.replace(/\D/g, ''));
-        const end = Math.min(start + chunkSize, videoSize - 1);
+    const chunkSize = 1000000
+    const start = Number(range.replace(/\D/g, ''));
+    const end = Math.min(start + chunkSize, videoSize - 1);
 
-        const contentLength = end - start + 1;
+    const contentLength = end - start + 1;
 
-        const headers = {
-          "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-          "Accept-Ranges": "bytes",
-          "Content-Length": contentLength,
-          "Content-Type": "video/mp4"
-        }
-        res.writeHead(206, headers);
-
-        const stream = fs.createReadStream(videoPath, { start, end })
-        stream.pipe(res);
-
-      } else {
-        res.sendFile(`${__dirname}/uploads/${req.params.tag}/${req.params.tag2}`);
-      }
-
-    } else {
-
-      res.send('The file does not exist.');
-
+    const headers = {
+      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": contentLength,
+      "Content-Type": "video/mp4"
     }
-  } catch (err) {
-    console.error(err);
+    res.writeHead(206, headers);
+
+    const stream = fs.createReadStream(videoPath, { start, end })
+    stream.pipe(res);
+  } catch (e) {
+    console.log(e)
+    res.status(404).sendFile('./error/404.html', { root: __dirname });
+  }
+
+});
+
+app.get('/uploads/:tag', function (req, res) {
+
+  var fiels = stats.getAllFiles('./uploads', [])
+  var fullfiels = stats.getAdvFiles('./uploads', [])
+  let key = stats.getUploadKey(req.params.tag, fullfiels)
+  let fileExtension = check.getExtension(req.params.tag)
+
+ 
+
+
+  if (fiels.indexOf(req.params.tag) != -1) {
+    
+    if(fileExtension != 'mp4'){
+      res.sendFile(`${__dirname}/uploads/${key}/${req.params.tag}`)
+    } else {
+      //
+    }
+
+  } else {
+
+    res.send('no')
+
   }
 
 });
@@ -106,7 +126,11 @@ app.post('/upload', function (req, res) {
   sampleFile.mv(__dirname + '/uploads/' + '/' + req.header("api_key") + '/' + filename, function (err) {
     if (err) return res.status(500).send(err);
 
-    res.send(`https:${req.get('host')}/${req.header('api_key')}/${filename}`);
+    if(fileExtension == "mp4"){
+      res.send(`https://${req.get('host')}/watch/?id=${filename}`)
+    } else {
+      res.send(`https://${req.get('host')}/uploads/${filename}`);
+    }
   });
 });
 
@@ -123,5 +147,5 @@ app.use(function (req, res, next) {
 });
 
 app.listen(config.port, () => {
-  console.log(`Example app listening at http://localhost:${config.port}`)
+  console.log(`App listening at ${config.port}`)
 })
