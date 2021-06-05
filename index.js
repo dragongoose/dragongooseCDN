@@ -123,7 +123,7 @@ app.post('/upload', function (req, res) {
     return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
   }
 
-  sampleFile.mv(__dirname + '/uploads/' + '/' + req.header("api_key") + '/' + filename, function (err) {
+  sampleFile.mv(__dirname + '/uploads/' + req.header("api_key") + '/' + filename, function (err) {
     if (err) return res.status(500).send(err);
 
     if(fileExtension == "mp4"){
