@@ -41,7 +41,10 @@ function getUploadKey(filename, arrayOfFiles) {
     console.log(`NAME: ${filename}`)
     for (i = 0; i < arrayOfFiles.length; i++) {
         var a = arrayOfFiles[i].split("\\");
-        array.push(a)
+        var b = arrayOfFiles[i].split("/");
+        array.push(a);
+        array.push(b);
+
     }
     for (i = 0; i < array.length; i++) {
       console.log(array[i])

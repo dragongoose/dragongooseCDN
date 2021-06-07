@@ -127,7 +127,7 @@ app.post('/upload', function (req, res) {
     if (err) return res.status(500).send(err);
 
     if(fileExtension == "mp4"){
-      res.send(`https://${req.get('host')}/watch/?id=${filename}`)
+      res.send(`https://${req.get('host')}/watch?id=${filename}`)
     } else {
       res.send(`https://${req.get('host')}/uploads/${filename}`);
     }
