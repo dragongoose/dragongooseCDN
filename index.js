@@ -72,10 +72,6 @@ app.get('/video/:id', (req, res) => {
 
 });
 
-app.get('/tts/:tag', function (req, res) {
-  res.send(req.params.tag);
-})
-
 app.get('/uploads/:tag', function (req, res) {
 
   var fiels = stats.getAllFiles('./uploads', [])
