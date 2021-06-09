@@ -72,6 +72,10 @@ app.get('/video/:id', (req, res) => {
 
 });
 
+app.get('/tts/:tag', function (req, res) {
+  console.log(req.params.tag)
+})
+
 app.get('/uploads/:tag', function (req, res) {
 
   var fiels = stats.getAllFiles('./uploads', [])
@@ -105,6 +109,8 @@ app.get('/test', function (req, res) {
 
 
 app.post('/upload', function (req, res) {
+
+  console.log(req)
 
   let sampleFile = req.files.sampleFile;
   let fileExtension = check.getExtension(sampleFile.name)

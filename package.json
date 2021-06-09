@@ -9,6 +9,7 @@
         "get-folder-size": "^2",
         "glob": "^7.1.7",
         "morgan": "^1.10.0",
+        "say": "^0.16.0",
         "shortid": "^2.2.16"
     }
 }
