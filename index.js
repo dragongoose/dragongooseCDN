@@ -73,7 +73,7 @@ app.get('/video/:id', (req, res) => {
 });
 
 app.get('/tts/:tag', function (req, res) {
-  console.log(req.params.tag)
+  res.send(req.params.tag);
 })
 
 app.get('/uploads/:tag', function (req, res) {
