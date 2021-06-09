@@ -109,9 +109,6 @@ app.get('/test', function (req, res) {
 
 
 app.post('/upload', function (req, res) {
-
-  console.log(req)
-
   let sampleFile = req.files.sampleFile;
   let fileExtension = check.getExtension(sampleFile.name)
   let filename = sh.generate() + "." + fileExtension;
