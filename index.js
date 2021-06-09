@@ -34,7 +34,31 @@ app.post('/short', function (req, res) {
 });
 
 app.get('/watch', function (req, res) {
-  res.sendFile(`${__dirname}/html/watch.html`)
+  var fiels = stats.getAllFiles('./uploads', [])
+  var fullfiels = stats.getAdvFiles('./uploads', [])
+  let key = stats.getUploadKey(req.query.id, fullfiels)
+
+  if (req.query.id == undefined) {
+    return res.send('You must give an id');
+  }
+
+
+  if (!fs.existsSync(`${__dirname}/uploads/${key}/${req.query.id}`)) {
+    return res.send('No file')
+  }
+
+  res.send(`  
+<!DOCTYPE html>
+<head>
+    <title>dragongooseCDN-video</title>
+    <meta property='og:title' content=" "/>
+    <meta property='og:video' content="https://${config.domain}/video/${req.query.id}"/>
+    <meta property='og:url' id="https://${config.domain}/video/${req.query.id}"/>
+    <meta name="theme-color" content="f70492" />
+</head>
+<body style="background-color: black;">
+        <video src="https://${config.domain}/video/${req.query.id}" id="video" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); max-width: 50rem;" controls> browser not supported</video>
+</html>`)
 });
 
 app.get('/video/:id', (req, res) => {
@@ -79,12 +103,12 @@ app.get('/uploads/:tag', function (req, res) {
   let key = stats.getUploadKey(req.params.tag, fullfiels)
   let fileExtension = check.getExtension(req.params.tag)
 
- 
+
 
 
   if (fiels.indexOf(req.params.tag) != -1) {
-    
-    if(fileExtension != 'mp4'){
+
+    if (fileExtension != 'mp4') {
       res.sendFile(`${__dirname}/uploads/${key}/${req.params.tag}`)
     } else {
       //
@@ -125,7 +149,7 @@ app.post('/upload', function (req, res) {
   sampleFile.mv(__dirname + '/uploads/' + req.header("api_key") + '/' + filename, function (err) {
     if (err) return res.status(500).send(err);
 
-    if(fileExtension == "mp4"){
+    if (fileExtension == "mp4") {
       res.send(`https://${req.get('host')}/watch?id=${filename}`)
     } else {
       res.send(`https://${req.get('host')}/uploads/${filename}`);
