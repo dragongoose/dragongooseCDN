@@ -52,8 +52,8 @@ app.get('/watch', function (req, res) {
 <head>
     <title>dragongooseCDN-video</title>
     <meta property='og:title' content="dragongooseCDN"/>
-    <meta property='og:video' content="https://${config.domain}/video/${req.query.id}"/>
-    <meta property='og:url' content="https://${config.domain}/video/${req.query.id}"/>
+    <meta property='og:video' content="https://${config.domain}/watch?id=${req.query.id}"/>
+    <meta property='og:url' content="https://${config.domain}/watch?id=${req.query.id}"/>
     <meta name="theme-color" content="f70492" />
 </head>
 <body style="background-color: black;">
