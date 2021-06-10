@@ -12,6 +12,7 @@ const stats = require('./locallib/stats')
 var morgan = require('morgan');
 const { ENOENT } = require('constants');
 const { dirname } = require('path');
+const { exec } = require('child_process');
 
 stats.run()
 
@@ -38,10 +39,19 @@ app.get('/watch', function (req, res) {
   var fullfiels = stats.getAdvFiles('./uploads', [])
   let key = stats.getUploadKey(req.query.id, fullfiels)
 
+
+
   if (req.query.id == undefined) {
     return res.send('You must give an id');
   }
 
+  var getDimensions = require('get-video-width-height');
+ 
+  getDimensions(`${__dirname}/uploads/${key}/${req.query.id}`).then(function (dimensions) {
+    height = dimensions.height
+    width = dimensions.width
+
+  })
 
   if (!fs.existsSync(`${__dirname}/uploads/${key}/${req.query.id}`)) {
     return res.send('No file')
@@ -53,7 +63,14 @@ app.get('/watch', function (req, res) {
     <title>dragongooseCDN-video</title>
     <meta property='og:title' content="dragongooseCDN"/>
     <meta property='og:video' content="https://${config.domain}/watch?id=${req.query.id}"/>
-    <meta property='og:url' content="https://${config.domain}/watch?id=${req.query.id}"/>
+    <meta property="og:url" content="https://${config.domain}/watch?id=${req.query.id}">
+    <meta property="og:image" content="https://${config.domain}/uploads/${req.query.id}-THUMB.png">
+    <meta property="og:video:type" content="text/html">
+    <meta property="og:video:url" content="https://${config.domain}/watch?id=${req.query.id}">
+    <meta property="og:video:height" content="${height}">
+    <meta property="og:video:width" content="${width}">
+    <meta property="og:type" content="video.other">
+
     <meta name="theme-color" content="f70492" />
 </head>
 <body style="background-color: black;">
@@ -151,6 +168,7 @@ app.post('/upload', function (req, res) {
 
     if (fileExtension == "mp4") {
       res.send(`https://${req.get('host')}/watch?id=${filename}`)
+      exec(`ffmpeg -i ${`${__dirname}/uploads/${req.header("api_key")}/${filename}`} -ss 00:00:00.100 -vframes 1 ${`${__dirname}/uploads/${req.header("api_key")}/${filename}-THUMB.png`}`)
     } else {
       res.send(`https://${req.get('host')}/uploads/${filename}`);
     }
