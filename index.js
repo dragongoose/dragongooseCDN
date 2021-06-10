@@ -47,9 +47,11 @@ app.get('/watch', function (req, res) {
 
   var getDimensions = require('get-video-width-height');
  
+  dimensions = new Object;
+
   getDimensions(`${__dirname}/uploads/${key}/${req.query.id}`).then(function (dimensions) {
-    height = dimensions.height
-    width = dimensions.width
+    dimensions.height = dimensions.height
+    dimensions.width = dimensions.width
 
   })
 
@@ -67,8 +69,8 @@ app.get('/watch', function (req, res) {
     <meta property="og:image" content="https://${config.domain}/uploads/${req.query.id}-THUMB.png">
     <meta property="og:video:type" content="text/html">
     <meta property="og:video:url" content="https://${config.domain}/watch?id=${req.query.id}">
-    <meta property="og:video:height" content="${height}">
-    <meta property="og:video:width" content="${width}">
+    <meta property="og:video:height" content="${dimensions.height}">
+    <meta property="og:video:width" content="${dimensions.width}">
     <meta property="og:type" content="video.other">
 
     <meta name="theme-color" content="f70492" />
