@@ -63,7 +63,7 @@ app.get('/watch', function (req, res) {
 <!DOCTYPE html>
 <head>
     <title>dragongooseCDN-video</title>
-    <meta property='og:title' content="dragongooseCDN"/>
+    <meta property='og:title' content="dragongooseCDN - video"/>
     <meta property='og:video' content="https://${config.domain}/watch?id=${req.query.id}"/>
     <meta property="og:url" content="https://${config.domain}/watch?id=${req.query.id}">
     <meta property="og:image" content="https://${config.domain}/uploads/${req.query.id}-THUMB.png">
@@ -171,6 +171,29 @@ app.post('/upload', function (req, res) {
     if (fileExtension == "mp4") {
       res.send(`https://${req.get('host')}/watch?id=${filename}`)
       exec(`ffmpeg -i ${`${__dirname}/uploads/${req.header("api_key")}/${filename}`} -ss 00:00:00.100 -vframes 1 ${`${__dirname}/uploads/${req.header("api_key")}/${filename}-THUMB.png`}`)
+
+      const videoSize = fs.statSync(`${__dirname}/uploads/${req.header("api_key")}/${filename}`).size;
+
+      const chunkSize = 1000000
+      const start = Number(range.replace(/\D/g, ''));
+      const end = Math.min(start + chunkSize, videoSize - 1);
+  
+      const contentLength = end - start + 1;
+  
+
+      const stats = fs.statSync(`${__dirname}/uploads/${req.header("api_key")}/${filename}`);
+      var fileinfo = new Object;
+      fileinfo.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
+      fileinfo.size = stats.size
+      fileinfo.length = contentLength
+
+      fs.writeFile(`${__dirname}/uploads/${req.header("api_key")}/${filename}-INFO.json`, fileinfo, (err) => {
+        if(err){
+          console.log(err)
+          return res.status(500).send(err)
+        }
+      });
+
     } else {
       res.send(`https://${req.get('host')}/uploads/${filename}`);
     }
