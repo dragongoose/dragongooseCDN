@@ -172,27 +172,26 @@ app.post('/upload', function (req, res) {
       res.send(`https://${req.get('host')}/watch?id=${filename}`)
       exec(`ffmpeg -i ${`${__dirname}/uploads/${req.header("api_key")}/${filename}`} -ss 00:00:00.100 -vframes 1 ${`${__dirname}/uploads/${req.header("api_key")}/${filename}-THUMB.png`}`)
 
-      const videoSize = fs.statSync(`${__dirname}/uploads/${req.header("api_key")}/${filename}`).size;
+      
 
-      const chunkSize = 1000000
-      const start = 0
-      const end = Math.min(start + chunkSize, videoSize - 1);
-  
-      const contentLength = end - start + 1;
-  
 
       const stats = fs.statSync(`${__dirname}/uploads/${req.header("api_key")}/${filename}`);
       var fileinfo = new Object;
       fileinfo.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '')
       fileinfo.size = stats.size
-      fileinfo.length = contentLength
+      
+      const { getVideoDurationInSeconds } = require('get-video-duration')
 
-      fs.writeFile(`${__dirname}/uploads/${req.header("api_key")}/${filename}-INFO.json`, JSON.stringify(fileinfo), (err) => {
-        if(err){
-          console.log(err)
-          return res.status(500).send(err)
-        }
-      });
+      getVideoDurationInSec(`${__dirname}/uploads/${req.header("api_key")}/${filename}`).then((duration) => {
+        fileinfo.duration = duration
+
+        fs.writeFile(`${__dirname}/uploads/${req.header("api_key")}/${filename}-INFO.json`, JSON.stringify(fileinfo), (err) => {
+          if(err){
+            console.log(err)
+            return res.status(500).send(err)
+          }
+        });
+      })
 
     } else {
       res.send(`https://${req.get('host')}/uploads/${filename}`);
