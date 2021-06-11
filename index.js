@@ -175,7 +175,7 @@ app.post('/upload', function (req, res) {
       const videoSize = fs.statSync(`${__dirname}/uploads/${req.header("api_key")}/${filename}`).size;
 
       const chunkSize = 1000000
-      const start = Number(range.replace(/\D/g, ''));
+      const start = 0
       const end = Math.min(start + chunkSize, videoSize - 1);
   
       const contentLength = end - start + 1;
