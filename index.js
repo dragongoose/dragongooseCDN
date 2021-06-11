@@ -187,7 +187,7 @@ app.post('/upload', function (req, res) {
       fileinfo.size = stats.size
       fileinfo.length = contentLength
 
-      fs.writeFile(`${__dirname}/uploads/${req.header("api_key")}/${filename}-INFO.json`, String(fileinfo), (err) => {
+      fs.writeFile(`${__dirname}/uploads/${req.header("api_key")}/${filename}-INFO.json`, JSON.stringify(JSON.parse(fileinfo)), (err) => {
         if(err){
           console.log(err)
           return res.status(500).send(err)
