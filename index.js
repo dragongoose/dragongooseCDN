@@ -59,11 +59,15 @@ app.get('/watch', function (req, res) {
     return res.send('No file')
   }
 
+  var fileinfo = fs.readFileSync(`${__dirname}/uploads/${key}/${req.query.id}-INFO.json`, {encoding:'utf8', flag:'r'})
+  var parsedfileinfo = JSON.parse(fileinfo);
+
   res.send(`  
 <!DOCTYPE html>
 <head>
     <title>dragongooseCDN-video</title>
     <meta property='og:title' content="dragongooseCDN - video"/>
+    <meta property='og:description content="Uploaded: ${parsedfileinfo.date} \n Size: ${parsedfileinfo.size / 1000} \n  Duration: ${parsedfileinfo.duration / 1000000}"/>'
     <meta property='og:video' content="https://${config.domain}/watch?id=${req.query.id}"/>
     <meta property="og:url" content="https://${config.domain}/watch?id=${req.query.id}">
     <meta property="og:image" content="https://${config.domain}/uploads/${req.query.id}-THUMB.png">
