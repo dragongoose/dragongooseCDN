@@ -182,7 +182,7 @@ app.post('/upload', function (req, res) {
       
       const { getVideoDurationInSeconds } = require('get-video-duration')
 
-      getVideoDurationInSec(`${__dirname}/uploads/${req.header("api_key")}/${filename}`).then((duration) => {
+      getVideoDurationInSeconds(`${__dirname}/uploads/${req.header("api_key")}/${filename}`).then((duration) => {
         fileinfo.duration = duration
 
         fs.writeFile(`${__dirname}/uploads/${req.header("api_key")}/${filename}-INFO.json`, JSON.stringify(fileinfo), (err) => {
