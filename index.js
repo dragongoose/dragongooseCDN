@@ -67,8 +67,8 @@ app.get('/watch', function (req, res) {
 <head>
     <title>dragongooseCDN-video</title>
     <meta property='og:title' content="dragongooseCDN - video"/>
-    <meta property="description" content="Uploaded: ${parsedfileinfo.date} Size: ${parsedfileinfo.size / 1000} Duration: ${Math.round(parsedfileinfo.duration)}"/>
-    <meta property="og:description" content="Uploaded: ${parsedfileinfo.date} Size: ${parsedfileinfo.size / 1000} Duration: ${Math.round(parsedfileinfo.duration)}"/>
+    <meta property="description" content="Uploaded: ${parsedfileinfo.date} \n Size: ${parsedfileinfo.size / 1000} \n Duration: ${Math.round(parsedfileinfo.duration)}"/>
+    <meta property="og:description" content="Uploaded: ${parsedfileinfo.date} \n Size: ${parsedfileinfo.size / 1000} \n Duration: ${Math.round(parsedfileinfo.duration)}"/>
     <meta property='og:video' content="https://${config.domain}/watch?id=${req.query.id}"/>
     <meta property="og:url" content="https://${config.domain}/watch?id=${req.query.id}">
     <meta property="og:image" content="https://${config.domain}/uploads/${req.query.id}-THUMB.png">
