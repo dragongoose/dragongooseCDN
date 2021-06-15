@@ -1,6 +1,62 @@
 const fs = require("fs")
 const path = require("path")
 const getSize = require('get-folder-size');
+
+const getAllFiles = function(dirPath, arrayOfFiles) {
+  files = fs.readdirSync(dirPath)
+
+  arrayOfFiles = arrayOfFiles || []
+
+  files.forEach(function(file) {
+    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+      arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles)
+    } else {
+      arrayOfFiles.push(file)
+    }
+  })
+
+  return arrayOfFiles
+}
+
+const getAdvFiles = function(dirPath, arrayOfFiles) {
+    files = fs.readdirSync(dirPath)
+  
+    arrayOfFiles = arrayOfFiles || []
+  
+    files.forEach(function(file) {
+      if (fs.statSync(dirPath + "/" + file).isDirectory()) {
+        arrayOfFiles = getAdvFiles(dirPath + "/" + file, arrayOfFiles)
+      } else {
+        arrayOfFiles.push(path.join(__dirname, '../' ,dirPath, "/", file))
+      }
+    })
+  
+    return arrayOfFiles
+  }
+
+function getUploadKey(filename, arrayOfFiles) {
+    var i;
+    var array = new Array;
+    var num = new Array;
+    console.log(`NAME: ${filename}`)
+    for (i = 0; i < arrayOfFiles.length; i++) {
+        var a = arrayOfFiles[i].split("\\");
+        var b = arrayOfFiles[i].split("/");
+        array.push(a);
+        array.push(b);
+
+    }
+    for (i = 0; i < array.length; i++) {
+      console.log(array[i])
+        if(array[i].indexOf(filename) != -1){
+            num.push(array[i][array[i].indexOf(filename) - 1])
+        }
+    }
+    console.log(num)
+    return num;
+  }
+
+
 function totalSize() {
     getSize('./uploads/', (err, size) => {
         if (err) { throw err; }
@@ -62,3 +118,6 @@ function run() {
 
 
 module.exports.run = run;
+module.exports.getAllFiles = getAllFiles;
+module.exports.getAdvFiles = getAdvFiles;
+module.exports.getUploadKey = getUploadKey;

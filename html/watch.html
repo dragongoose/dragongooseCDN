@@ -1,0 +1,29 @@
+  
+<!DOCTYPE html>
+<head>
+    <title>dragongooseCDN-video</title>
+    <meta property='og:title' content=" "/>
+    <meta property='og:video' id="videometatag"/>
+    <meta property='og:url' id="videometatag2"/>
+    <meta name="theme-color" content="f70492" />
+</head>
+<body style="background-color: black;">
+        <video src="" id="video" style="left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); max-width: 50rem;" controls> browser not supported</video>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get("id");
+            console.log(id)
+            if(id === null){
+                console.log('badid')
+                document.getElementById('video').src = `https://${document.domain}:1816/assets/video/invalidid.mp4`;
+            } else if(id == ""){
+                console.log('badid')
+                document.getElementById('video').src = `https://${document.domain}/assets/video/invalidid.mp4`;
+            } else {
+                document.getElementById('video').src = `https://${document.domain}/video/${id}`;
+            }
+      		document.getElementById("videometatag").setAttribute("content", `${document.getElementById('video').src}`);
+            document.getElementById("videometatag2").setAttribute("content", `${document.getElementById('video').src}`);
+        </script>
+</body>
+</html>
