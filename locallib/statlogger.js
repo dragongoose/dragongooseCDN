@@ -3,7 +3,7 @@ const { exit } = require('process');
 const stats = require('./stats.js');
 
 
-var dir = `${__dirname}/stats/`;
+var dir = `../stats/`;
 
 
 //if stats directory doesnt exists add
@@ -12,7 +12,8 @@ if (!fs.existsSync(dir)){
 }
 
 var before = new Date().getTime() //get current time
-var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
+var filenamedate = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
+var date = new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })
 
 console.log('Logging stats.')
 
@@ -24,10 +25,10 @@ stats.totalSize.then(size => {
         date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
         chartdate: date.slice(0, -17),
         totalSize: size,
-        totalFiles: files.totalFiles,
+        totalFiles: files.totalFiles.length,
     }
     
-    fs.writeFile(`${dir}${date}.stats`, JSON.stringify(data), (err) => {
+    fs.writeFile(`${dir}${filenamedate}.stats`, JSON.stringify(data), (err) => {
         if(err) return console.log('ERROR WHILE SAVING STATS:')
         var after = new Date().getTime() - before
         console.log(`Done! took ${after}ms`);
