@@ -1,4 +1,14 @@
 {
+    "name": "dragongoosecdn",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
     "dependencies": {
         "body-parser": "^1.19.0",
         "chart.js": "^3.3.2",
@@ -6,7 +16,7 @@
         "express": "^4.17.1",
         "express-fileupload": "^1.2.1",
         "express-ip": "^1.0.4",
-        "get-folder-size": "^2",
+        "get-folder-size": "^2.0.0",
         "get-video-duration": "^3.1.0",
         "get-video-width-height": "^2.0.0",
         "glob": "^7.1.7",
