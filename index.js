@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(fileUpload());
 app.use(expressip().getIpInfoMiddleware);
-app.use(morgan({ stream: fs.createWriteStream('./logs/' + date + 'access.log', { flags: 'a' }) }));
+app.use(morgan({ stream: fs.createWriteStream(__dirname + '/logs/' + date + 'access.log', { flags: 'a' }) }));
 app.use(morgan('dev'));
 
 app.use('/', express.static(__dirname + '/css'))
