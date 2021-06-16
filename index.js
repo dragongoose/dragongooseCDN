@@ -1,5 +1,7 @@
 const express = require('express')
 const app = express()
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 const bodyParser = require("body-parser");
 const config = require('./config.json');
 const fileUpload = require('express-fileupload');
@@ -216,6 +218,16 @@ app.use(function (req, res, next) {
   res.sendFile('./error/404.html', { root: __dirname });
 });
 
-app.listen(config.port, () => {
-  console.log(`App listening at ${config.port}`)
-})
+//SOCKET IO
+
+io.on('connection', function(client) {
+
+  console.log('socket connection');
+ /* 
+  client.on('join', function(data) {
+    console.log(data);
+  });
+  */
+});
+
+server.listen(4200);
