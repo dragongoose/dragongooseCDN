@@ -15,7 +15,7 @@ const getAllFiles = function(dirPath, arrayOfFiles) {
     }
   })
 
-  return arrayOfFiles
+  return arrayOfFiles;
 }
 
 const getAdvFiles = function(dirPath, arrayOfFiles) {
