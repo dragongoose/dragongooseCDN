@@ -10,14 +10,10 @@ const path = require('path')
 const sh = require('shortid');
 const fs = require('fs');
 const check = require('./locallib/checks.js')
-const stats = require('./locallib/stats')
 var morgan = require('morgan');
 const { ENOENT } = require('constants');
 const { dirname } = require('path');
 const { exec } = require('child_process');
-
-stats.run()
-
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,6 +30,10 @@ app.use('/assets', express.static(__dirname + '/assets'));
 //url shorten
 app.post('/short', function (req, res) {
   console.log(req.body)
+});
+
+app.get('/stats/stats.stats', function (req, res) {
+  res.sendFile(`${__dirname}/stats/stats.stats`)
 });
 
 app.get('/watch', function (req, res) {
@@ -220,7 +220,11 @@ app.use(function (req, res, next) {
 
 //SOCKET IO
 
-io.on('connection', function(client) {
+io.on('connection', function(socket) {
+
+  var stats = fs.readFileSync(`${__dirname}/stats/stats.stats`, {encoding:'utf8', flag:'r'});
+
+  socket.emit('chartjson', stats)
 
   console.log('socket connection');
  /* 
@@ -230,4 +234,4 @@ io.on('connection', function(client) {
   */
 });
 
-server.listen(4200);
+server.listen(config.port);
