@@ -10,6 +10,7 @@ const path = require('path')
 const sh = require('shortid');
 const fs = require('fs');
 const check = require('./locallib/checks.js')
+const stats = require('./locallib/stats.js')
 var morgan = require('morgan');
 const { ENOENT } = require('constants');
 const { dirname } = require('path');
