@@ -60,7 +60,7 @@ function getUploadKey(filename, arrayOfFiles) {
 const totalSize = new Promise((resolve, reject) => {
   var a = {}
 
-  getSize('../uploads/', (err, size) => {
+  getSize('./uploads/', (err, size) => {
     if (err) {reject(err); throw err}
     a.size = size
   })
@@ -80,7 +80,7 @@ const totalSize = new Promise((resolve, reject) => {
 /*
 function totalSize() {
 
-    getSize('../uploads/', (err, size) => {
+    getSize('./uploads/', (err, size) => {
         if (err) {throw err} else {
           a.size = size;
         }     
@@ -92,7 +92,7 @@ function totalSize() {
 */
 
 function totalFiles() {
-    var filesArray = fs.readdirSync("../uploads")
+    var filesArray = fs.readdirSync("./uploads")
     var ok = {
         'run': 'true'
     };
@@ -115,7 +115,7 @@ function totalFiles() {
           
             return arrayOfFiles
         }
-        var returnArray = getAllFiles('../uploads/');
+        var returnArray = getAllFiles('./uploads/');
 
         ok.totalFiles = returnArray.toString().split(',');
         ok.run = 'true';
