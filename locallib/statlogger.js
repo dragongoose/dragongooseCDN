@@ -45,7 +45,6 @@ function run() {
             if (err) { throw err }
             var after = new Date().getTime() - before
             console.log(`Done! took ${after}ms`);
-            exit();
         })
 
 
