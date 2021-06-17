@@ -11,11 +11,15 @@ const sh = require('shortid');
 const fs = require('fs');
 const check = require('./locallib/checks.js')
 const stats = require('./locallib/stats.js')
+const statlogger = require('./locallib/statlogger.js')
 var morgan = require('morgan');
 const { ENOENT } = require('constants');
 const { dirname } = require('path');
 const { exec } = require('child_process');
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
+
+//log current stats
+statlogger.run();
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
