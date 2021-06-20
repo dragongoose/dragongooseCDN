@@ -1,6 +1,4 @@
 # dragongooseCDN
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDragonshadow14%2FdragongooseCDN.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FDragonshadow14%2FdragongooseCDN?ref=badge_shield)
-
 
 dragongooseCDN is a (somewhat) simple file uploading server based around ShareX
 
@@ -33,5 +31,3 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FDragonshadow14%2FdragongooseCDN.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FDragonshadow14%2FdragongooseCDN?ref=badge_large)
