@@ -154,11 +154,6 @@ app.get('/uploads/:tag', function (req, res) {
 });
 
 
-app.get('/test', function (req, res) {
-  res.send('hi')
-})
-
-
 app.post('/upload', function (req, res) {
   let sampleFile = req.files.sampleFile;
   let fileExtension = check.getExtension(sampleFile.name)
