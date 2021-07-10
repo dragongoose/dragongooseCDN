@@ -10,7 +10,7 @@ function getExtension(filename) {
   return ext[ext.length - 1];
 };
 
-function meetCriteria(file){
+async function meetCriteria(file){
     //let sampleFile = file.sampleFile;
   	//let fileExtension = getExtension(file.name)
       const fileExtension = await fileType.fromBuffer(buffer).ext
