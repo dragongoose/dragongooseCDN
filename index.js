@@ -45,7 +45,7 @@ app.get('/uploads/:tag', function (req, res) {
 
 
   if (fiels.indexOf(req.params.tag) != -1) {
-      res.sendFile(`${__dirname}/uploads/${key}/${req.params.tag}`)
+    res.sendFile(`${__dirname}/uploads/${key}/${req.params.tag}`)
   } else {
     res.send('invalid id')
   }
@@ -54,30 +54,33 @@ app.get('/uploads/:tag', function (req, res) {
 
 
 app.post('/upload', function (req, res) {
-  let sampleFile = req.files.sampleFile;
-  //let fileExtension = check.getExtension(sampleFile.name)
-  const fileExtension = await fileType.fromBuffer(buffer).ext
-  let filename = sh.generate() + "." + fileExtension;
+  async function main() {
+    let sampleFile = req.files.sampleFile;
+    //let fileExtension = check.getExtension(sampleFile.name)
+    const fileExtension = await fileType.fromBuffer(buffer).ext
+    let filename = sh.generate() + "." + fileExtension;
 
-  // check if apikey is valid
-  if (!config.api_key.includes(req.header("api_key"))) {
-    return res.sendStatus(401).send('Invalid api key');
-  }
+    // check if apikey is valid
+    if (!config.api_key.includes(req.header("api_key"))) {
+      return res.sendStatus(401).send('Invalid api key');
+    }
 
-  if (check.meetCriteria(req.files.sampleFile).msg !== 'ok') {
-    return res.status(check.meetCriteria(req.files.sampleFile).code).send(check.meetCriteria(req.files.sampleFile).msg)
-  }
+    if (check.meetCriteria(req.files.sampleFile).msg !== 'ok') {
+      return res.status(check.meetCriteria(req.files.sampleFile).code).send(check.meetCriteria(req.files.sampleFile).msg)
+    }
 
-  if (check.ipCheck(req.ipInfo.ip).msg !== 'ok') {
-    return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
-  }
+    if (check.ipCheck(req.ipInfo.ip).msg !== 'ok') {
+      return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
+    }
 
-  sampleFile.mv(__dirname + '/uploads/' + req.header("api_key") + '/' + filename, function (err) {
-    if (err) return res.status(500).send(err);
+    sampleFile.mv(__dirname + '/uploads/' + req.header("api_key") + '/' + filename, function (err) {
+      if (err) return res.status(500).send(err);
 
       res.send(`https://${req.get('host')}/uploads/${filename}`);
 
-  });
+    });
+
+  }
 });
 
 // Give Index.html for visitors
@@ -94,18 +97,18 @@ app.use(function (req, res, next) {
 
 //SOCKET IO
 
-io.on('connection', function(socket) {
+io.on('connection', function (socket) {
 
-  var stats = fs.readFileSync(`${__dirname}/stats/stats.stats`, {encoding:'utf8', flag:'r'});
+  var stats = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' });
 
   socket.emit('chartjson', stats)
 
   console.log('socket connection');
- /* 
-  client.on('join', function(data) {
-    console.log(data);
-  });
-  */
+  /* 
+   client.on('join', function(data) {
+     console.log(data);
+   });
+   */
 });
 
 server.listen(config.port);
