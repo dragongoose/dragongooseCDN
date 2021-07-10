@@ -1,21 +1,18 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 const bodyParser = require("body-parser");
 const config = require('./config.json');
 const fileUpload = require('express-fileupload');
 const expressip = require('express-ip');
-const path = require('path')
 const sh = require('shortid');
 const fs = require('fs');
-const check = require('./locallib/checks.js')
-const stats = require('./locallib/stats.js')
-const statlogger = require('./locallib/statlogger.js')
+const check = require('./locallib/checks.js');
+const stats = require('./locallib/stats.js');
+const statlogger = require('./locallib/statlogger.js');
 var morgan = require('morgan');
-const { ENOENT } = require('constants');
-const { dirname } = require('path');
-const { exec } = require('child_process');
+const fileType = require('file-type');
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
 
 //log current stats
