@@ -15,6 +15,7 @@ async function meetCriteria(file){
   	//let fileExtension = getExtension(file.name)
     const filea = await fileType.fromBuffer(file.data)
     const fileExtension = filea.ext
+    console.log(fileExtension)
   	if(config.allowedExtensions.indexOf(fileExtension) == -1){
         exit.code = 403
     	exit.msg = 'File type ' + fileExtension +  ' is not allowed'
