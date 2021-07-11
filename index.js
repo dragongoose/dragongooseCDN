@@ -16,10 +16,15 @@ const fileType = require('file-type');
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
 
 //log current stats
-const schedule = require('node-schedule');
-schedule.scheduleJob('0 0 * * *', () => {
+var CronJob = require('cron').CronJob;
+var job = new CronJob('00 00 12 * * 1-7', function() {
   statlogger.run();
-})
+  }, function () {
+    /* This function is executed when the job stops */
+  },
+  true, /* Start the job right now */
+  America/New_York /* Time zone of this job. */
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
