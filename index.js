@@ -17,7 +17,7 @@ var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date()
 
 //log current stats
 var CronJob = require('cron').CronJob;
-var job = new CronJob('00 00 12 * * 1-7', function() {
+var job = new CronJob('00 00 12 * * 0-6', function() {
   statlogger.run();
   }, function () {
     /* This function is executed when the job stops */
