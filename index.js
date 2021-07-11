@@ -63,10 +63,9 @@ app.post('/upload', function (req, res) {
       return res.sendStatus(401).send('Invalid api key');
     }
 
-    if (check.meetCriteria(req.files.sampleFile).msg !== 'ok') {
-      check.meetCriteria(req.files.sampleFile).then(data => console.log(data))
+    check.meetCriteria(req.files.sampleFile).then(data => {
       return res.status(check.meetCriteria(req.files.sampleFile).code).send(check.meetCriteria(req.files.sampleFile).msg)
-    }
+    })
 
     if (check.ipCheck(req.ipInfo.ip).msg !== 'ok') {
       return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
