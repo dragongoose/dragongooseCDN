@@ -17,10 +17,9 @@ var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date()
 
 //log current stats
 const schedule = require('node-schedule');
-var j = schedule.scheduleJob({hour: 00, minute: 00}, function(){
+schedule.scheduleJob('0 0 * * *', () => {
   statlogger.run();
-});
-
+})
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
