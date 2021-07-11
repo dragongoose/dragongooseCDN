@@ -64,6 +64,7 @@ app.post('/upload', function (req, res) {
     }
 
     if (check.meetCriteria(req.files.sampleFile).msg !== 'ok') {
+      console.log(check.meetCriteria(req.files.sampleFile))
       return res.status(check.meetCriteria(req.files.sampleFile).code).send(check.meetCriteria(req.files.sampleFile).msg)
     }
 
