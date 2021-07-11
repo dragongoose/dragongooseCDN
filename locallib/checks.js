@@ -36,6 +36,7 @@ async function meetCriteria(file){
    
 	if(exit = {}){
     	exit.msg = 'ok'
+        exit.code = 200
     	return(exit);
 	};
 };
@@ -49,6 +50,7 @@ function ipCheck(ip){
     
     if(exit = {}){
     	exit.msg = 'ok'
+        exit.code = 200
     	return(exit);
 	};
 }
