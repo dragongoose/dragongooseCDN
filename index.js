@@ -16,7 +16,11 @@ const fileType = require('file-type');
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
 
 //log current stats
-statlogger.run();
+const schedule = require('node-schedule');
+var j = schedule.scheduleJob({hour: 00, minute: 00}, function(){
+  statlogger.run();
+});
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
