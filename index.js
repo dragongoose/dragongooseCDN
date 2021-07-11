@@ -78,7 +78,8 @@ app.post('/upload', function (req, res) {
 
     });
 
-  }
+  };
+  main()
 });
 
 // Give Index.html for visitors
