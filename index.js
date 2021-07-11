@@ -54,7 +54,7 @@ app.post('/upload', function (req, res) {
   async function main() {
     let sampleFile = req.files.sampleFile;
     //let fileExtension = check.getExtension(sampleFile.name)
-    const fileExtension = await fileType.fromBuffer(sampleFile.data).ext
+    const fileExtension = await fileType.fromBuffer(sampleFile.data)
     console.log(fileExtension)
     let filename = sh.generate() + "." + fileExtension;
 
