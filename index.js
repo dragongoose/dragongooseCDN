@@ -56,8 +56,6 @@ app.post('/upload', function (req, res) {
     //let fileExtension = check.getExtension(sampleFile.name)
     const filea = await fileType.fromBuffer(sampleFile.data)
     const fileExtension = filea.ext
-    console.log(filea)
-    console.log(fileExtension)
     let filename = sh.generate() + "." + fileExtension;
 
     // check if apikey is valid
