@@ -13,7 +13,7 @@ function getExtension(filename) {
 async function meetCriteria(file){
     let sampleFile = file.sampleFile;
   	//let fileExtension = getExtension(file.name)
-    const filea = await fileType.fromBuffer(sampleFile.data)
+    const filea = await fileType.fromBuffer(file.data)
     const fileExtension = filea.ext
   	if(config.allowedExtensions.indexOf(fileExtension) == -1){
         exit.code = 403
