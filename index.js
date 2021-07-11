@@ -23,7 +23,7 @@ var job = new CronJob('00 00 12 * * 1-7', function() {
     /* This function is executed when the job stops */
   },
   true, /* Start the job right now */
-  America/New_York /* Time zone of this job. */
+  'America/New_York' /* Time zone of this job. */
 );
 
 app.use(bodyParser.urlencoded({ extended: false }));
