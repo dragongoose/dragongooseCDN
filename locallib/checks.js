@@ -13,7 +13,7 @@ function getExtension(filename) {
 async function meetCriteria(file){
     let sampleFile = file.sampleFile;
   	//let fileExtension = getExtension(file.name)
-      const fileExtension = await fileType.fromBuffer(Buffer.from(sampleFile, 'utf8')).ext
+      const fileExtension = await fileType.fromBuffer(sampleFile.data).ext
   	if(config.allowedExtensions.indexOf(fileExtension) == -1){
         exit.code = 403
     	exit.msg = 'File type ' + fileExtension +  ' is not allowed'
