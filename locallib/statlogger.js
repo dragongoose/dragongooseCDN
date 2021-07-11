@@ -25,9 +25,16 @@ function run() {
 
         var statsarray;
 
+        var chartdate; 
+        if(date.slice(0, -17).length === 4){
+            var chartdate = date.slice(0, -18)
+        } else {
+            var chartdate = date.slice(0, -17)
+        }
+
         var data = {
             date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
-            chartdate: date.slice(0, -17),
+            chartdate: chartdate,
             totalSize: size,
             totalFiles: files.totalFiles.length,
         }
