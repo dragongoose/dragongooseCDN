@@ -64,7 +64,7 @@ app.post('/upload', function (req, res) {
     }
 
     check.meetCriteria(req.files.sampleFile).then(data => {
-      return res.status(data.code).send(data.msg)
+      if(data.msg != 'ok') return res.status(data.code).send(data.msg);
     })
 
     if (check.ipCheck(req.ipInfo.ip).msg !== 'ok') {
