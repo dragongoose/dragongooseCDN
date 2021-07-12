@@ -5,7 +5,6 @@ var io = require('socket.io')(server);
 const bodyParser = require("body-parser");
 const config = require('./config.json');
 const fileUpload = require('express-fileupload');
-const expressip = require('express-ip');
 const sh = require('shortid');
 const fs = require('fs');
 const check = require('./locallib/checks.js');
@@ -13,6 +12,7 @@ const stats = require('./locallib/stats.js');
 const statlogger = require('./locallib/statlogger.js');
 var morgan = require('morgan');
 const fileType = require('file-type');
+const rateLimit = require("express-rate-limit");
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
 
 //log current stats
@@ -27,10 +27,16 @@ var job = new CronJob('00 00 12 * * 0-6', function() {
   'America/New_York' /* Time zone of this job. */
 );
 
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+
+//  apply to all requests
+app.use(limiter);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(fileUpload());
-app.use(expressip().getIpInfoMiddleware);
 app.use(morgan({ stream: fs.createWriteStream(__dirname + '/logs/' + date + 'access.log', { flags: 'a' }) }));
 app.use(morgan('dev'));
 
@@ -75,8 +81,7 @@ app.post('/upload', function (req, res) {
     check.meetCriteria(req.files.sampleFile).then(data => {
       if(data.msg != 'ok') return res.status(data.code).send(data.msg);
     })
-
-    if (check.ipCheck(req.ipInfo.ip).msg !== 'ok') {
+    if (check.ipCheck(req.headers['x-forwarded-for']).msg !== 'ok') {
       return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
     }
 
@@ -94,6 +99,7 @@ app.post('/upload', function (req, res) {
 // Give Index.html for visitors
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/html/main.html');
+    console.log(req.headers['x-forwarded-for']);
 });
 
 

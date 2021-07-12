@@ -17,6 +17,7 @@
         "express": "^4.17.1",
         "express-fileupload": "^1.2.1",
         "express-ip": "^1.0.4",
+        "express-rate-limit": "^5.3.0",
         "file-type": "^16.5.1",
         "get-folder-size": "^2.0.0",
         "get-video-duration": "^3.1.0",
