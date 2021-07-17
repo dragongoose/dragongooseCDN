@@ -47,12 +47,10 @@ function getUploadKey(filename, arrayOfFiles) {
 
     }
     for (i = 0; i < array.length; i++) {
-      console.log(array[i])
         if(array[i].indexOf(filename) != -1){
             num.push(array[i][array[i].indexOf(filename) - 1])
         }
     }
-    console.log(num)
     return num;
   }
 
