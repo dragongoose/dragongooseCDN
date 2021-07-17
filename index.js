@@ -125,4 +125,6 @@ io.on('connection', function (socket) {
    */
 });
 
-server.listen(config.port);
+server.listen(config.port, function () {
+  console.log(`Listening on port ${config.port}`)
+});
