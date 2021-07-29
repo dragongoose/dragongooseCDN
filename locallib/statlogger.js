@@ -29,7 +29,7 @@ function run() {
 
         var data = {
             date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
-            chartdate: date.slice(0, -17),
+            chartdate: date.slice(0, -18),
             totalSize: size,
             totalFiles: files.totalFiles.length,
         }
@@ -38,7 +38,8 @@ function run() {
         var statsarray = JSON.parse(statsarray);
 
         if (statsarray.length == 12) {
-            statsarray.pop();
+            statsarray.splice(0,1);
+
         };
 
         statsarray.push(data);
