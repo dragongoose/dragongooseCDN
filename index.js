@@ -13,6 +13,7 @@ const statlogger = require('./locallib/statlogger.js');
 var morgan = require('morgan');
 const fileType = require('file-type');
 const rateLimit = require("express-rate-limit");
+const ejsLint = require('ejs-lint');
 var date = new Date().getMonth() + '_' + new Date().getDate() + '_' + new Date().getFullYear();
 
 //log current stats
@@ -43,6 +44,8 @@ app.use(morgan('dev'));
 app.use('/', express.static(__dirname + '/css'))
 app.use('/', express.static(__dirname + '/html'));
 app.use('/assets', express.static(__dirname + '/assets'));
+
+app.set('view engine', 'ejs'); //ejs
 
 app.get('/stats/stats.stats', function (req, res) {
   res.sendFile(`${__dirname}/stats/stats.stats`)
@@ -98,7 +101,7 @@ app.post('/upload', function (req, res) {
 
 // Give Index.html for visitors
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + '/html/main.html');
+  res.render(`${__dirname}/html/main.ejs`)
     console.log(req.headers['x-forwarded-for']);
 });
 

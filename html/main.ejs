@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../ejs/partials/head.ejs') %>
+</head>
+
+<body>
+
+  <!-- navbar -->
+  <%- include('../ejs/page/navbar.ejs') %>
+
+  <main>
+    <div class="container">
+      <titlebar>
+        <h1 class="titleheader">Uploader Stats</h1>
+      </titlebar>
+      <maincontent>Main</maincontent>
+      <div id="content1">
+        TOTAL UPLOADS SIZE
+        <div class="chart-container">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <div id="content2">Content2</div>
+      <div id="content3">Content3</div>
+      <footer>Footer</footer>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" integrity="sha512-hZf9Qhp3rlDJBvAKvmiG+goaaKRZA6LKUO35oK6EsM0/kjPK32Yw7URqrq3Q+Nvbbt8Usss+IekL7CRn83dYmw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/assets/javascript/charts.js"></script>
+ 
+</body>
+</html>
