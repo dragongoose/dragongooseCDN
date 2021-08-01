@@ -31,6 +31,10 @@ canvas {
   text-shadow: 1px 1px 1px #000000;
 }
 
+#content2 {
+  color: #df49a6;
+}
+
 .sizechart {
   background-color: rgba(255, 255, 255, 1);
   border: px rgba(0, 0, 0, 1) solid;
@@ -40,3 +44,4 @@ canvas {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+

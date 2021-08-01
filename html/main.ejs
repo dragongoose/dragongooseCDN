@@ -26,7 +26,17 @@
 
       </div>
 
-      <div id="content2">Content2</div>
+      <div id="content2">
+        FILE STATS
+
+        <%if (totaljson) { %>
+          <% var data = JSON.parse(JSON.stringify(totaljson)) %>
+          <p style="font-size:3vw;">Total Files: <%= data.total.totalFiles.length %></P>
+            <p style="font-size:3vw;">Total Size: <%= (data.totalsize / 1024 / 1024).toFixed(2) + ' MB' %></P>  
+        <% } %>
+
+      </div>
+
       <div id="content3">Content3</div>
 
       <footer>

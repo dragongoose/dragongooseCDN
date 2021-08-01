@@ -101,7 +101,24 @@ app.post('/upload', function (req, res) {
 
 // Give Index.html for visitors
 app.get('/', function (req, res) {
-  res.render(`${__dirname}/html/main.ejs`)
+  var stat = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' });
+  var totaljson = {}
+  totaljson.total = stats.totalFiles()
+
+  stats.totalSize.then((asd) => {
+
+    totaljson.totalsize = asd
+
+    res.render(`${__dirname}/html/main.ejs`, {
+      stats : stat,
+      totaljson : totaljson
+    })
+  })
+
+  console.log(totaljson)
+
+
+
     console.log(req.headers['x-forwarded-for']);
 });
 
@@ -118,9 +135,13 @@ io.on('connection', function (socket) {
 
   var stats = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' });
 
+
   socket.emit('chartjson', stats)
 
+
   console.log('socket connection');
+
+  
   /* 
    client.on('join', function(data) {
      console.log(data);

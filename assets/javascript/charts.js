@@ -99,3 +99,4 @@ socket.on("chartjson", (data) => {
         }
     });
 });
+
