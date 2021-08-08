@@ -84,7 +84,7 @@ app.post('/upload', function (req, res) {
     check.meetCriteria(req.files.sampleFile).then(data => {
       if(data.msg != 'ok') return res.sendStatus(data.code).send(data.msg);
     })
-    
+
     if (check.ipCheck(req.headers['x-forwarded-for']).msg !== 'ok') {
       return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
     }
@@ -140,9 +140,9 @@ io.on('connection', function (socket) {
 
   var stats = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' });
 
-
   socket.emit('chartjson', stats)
 
+  setInterval(function(){ socket.emit('chartjson', stats) },1000) //send chart data frequently, so the client can update the chart if needed/
 
   console.log('socket connection');
 
