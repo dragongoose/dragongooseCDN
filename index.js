@@ -101,18 +101,21 @@ app.post('/upload', function (req, res) {
 
 // Give Index.html for visitors
 app.get('/', function (req, res) {
-  var stat = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' });
+
+
+  var stat = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' }); //get saved stats
   var totaljson = {}
-  totaljson.total = stats.totalFiles()
+  totaljson.total = stats.totalFiles() // add the stats to json
 
-  stats.totalSize.then((asd) => {
+  stats.totalSize.then((asd) => { // ugh, promises
 
-    totaljson.totalsize = asd
+    totaljson.totalsize = asd // more stats
 
-    res.render(`${__dirname}/html/main.ejs`, {
+    res.render(`${__dirname}/html/main.ejs`, { // render EJS with the variables
       stats : stat,
       totaljson : totaljson
     })
+
   })
 
   console.log(totaljson)
