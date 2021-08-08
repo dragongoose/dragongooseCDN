@@ -70,11 +70,11 @@ app.get('/uploads/:tag', function (req, res) {
 
 app.post('/upload', function (req, res) {
   async function main() {
+
     let sampleFile = req.files.sampleFile;
-    //let fileExtension = check.getExtension(sampleFile.name)
-    const filea = await fileType.fromBuffer(sampleFile.data)
-    const fileExtension = filea.ext
-    let filename = sh.generate() + "." + fileExtension;
+    const filea = await fileType.fromBuffer(sampleFile.data) //get the filetype from the recieved buffer
+    const fileExtension = filea.ext //buffer file type
+    let filename = sh.generate() + "." + fileExtension; //new filename for the file.
 
     // check if apikey is valid
     if (!config.api_key.includes(req.header("api_key"))) {
@@ -82,14 +82,15 @@ app.post('/upload', function (req, res) {
     }
 
     check.meetCriteria(req.files.sampleFile).then(data => {
-      if(data.msg != 'ok') return res.status(data.code).send(data.msg);
+      if(data.msg != 'ok') return res.sendStatus(data.code).send(data.msg);
     })
+    
     if (check.ipCheck(req.headers['x-forwarded-for']).msg !== 'ok') {
       return res.status(check.ipCheck(req.ipInfo.ip).code).send(check.ipCheck(req.ipInfo.ip).msg)
     }
 
     sampleFile.mv(__dirname + '/uploads/' + req.header("api_key") + '/' + filename, function (err) {
-      if (err) return res.status(500).send(err);
+      if (err) return res.sendStatus(500).send(err);
 
       res.send(`https://${config.domain}/uploads/${filename}`);
 
@@ -105,6 +106,7 @@ app.get('/', function (req, res) {
 
   var stat = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' }); //get saved stats
   var totaljson = {}
+
   totaljson.total = stats.totalFiles() // add the stats to json
 
   stats.totalSize.then((asd) => { // ugh, promises
