@@ -1,59 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <%- include('../ejs/partials/head.ejs') %>
-</head>
+  <head>
+    <%- include('../ejs/partials/head.ejs') %>
+  
+    <title>
+      dragongooseCDN - uploader
+    </title>
+  </head>
 
-<body>
+  <body>
+    <!-- navbar -->
+    <%- include('../ejs/page/navbar.ejs') %>
 
-  <!-- navbar -->
-  <%- include('../ejs/page/navbar.ejs') %>
+    <main>
+      <label for="file_photo">Photo:</label>
 
-  <label for="file_photo">Photo:</label>
+      <input type="file" name="sampleFile" id="file_photo" /><br />
+      <button type="submit" role="button" id="submit">Submit</button>
 
-  <input type="file" name="sampleFile" id="file_photo" /><br />
-  <button type="submit" role="button" id="submit">Submit</button>
+      <script>
+        const form = document.getElementById("file_photo");
+        const sumbit = document.getElementById("submit");
 
+        sumbit.addEventListener("click", () => {
+          async function sendData(url, data) {
+            const formData = new FormData();
 
-  <script>
-    const form = document.getElementById("file_photo");
-    const sumbit = document.getElementById("submit");
-    
+            formData.append("sampleFile", data);
 
-    sumbit.addEventListener("click", () => {
+            console.log(data);
 
-      async function sendData(url, data) {
-        const formData = new FormData();
+            fetch(url, {
+              method: "POST",
+              body: formData,
+              headers: {
+                api_key: "fPP1iQeqDu",
+              },
+            })
+              .then((response) => response.text())
+              .then((data) => {
+                console.log(data);
+              });
 
-        formData.append('sampleFile', data);
-
-        console.log(data)
-
-
-       fetch(url, {
-          method: "POST",
-          body: formData,
-          headers: {
-            'api_key':'fPP1iQeqDu'
+            // ...
           }
-        })
-        .then(response => response.text())
-        .then(data => { console.log(data) })
-
-        // ...
-      }
-      sendData('http://localhost:1816/upload', form.files[0])
-
-    });
-    </script>
-
- 
-</body>
+          sendData("http://localhost:1816/upload", form.files[0]);
+        });
+      </script>
+    </main>
+  </body>
 </html>
-
-
-
-
-
-
-
