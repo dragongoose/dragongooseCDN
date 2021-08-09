@@ -100,6 +100,12 @@ app.post('/upload', function (req, res) {
   main()
 });
 
+app.get('/upload' , function (req, res) {
+
+   res.render(`${__dirname}/html/upload.ejs`)
+
+})
+
 // Give Index.html for visitors
 app.get('/', function (req, res) {
 

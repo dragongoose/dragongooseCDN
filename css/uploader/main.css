@@ -1,0 +1,47 @@
+body {
+    background-color: #43424c;
+  }
+  
+  .red {
+    color: red;
+  }
+  
+  .yellow {
+    color: yellow;
+  }
+  
+  .green {
+    color: green;
+  }
+  
+  canvas {
+    border: 1px round grey;
+  }
+  
+  .chart-container {
+    position: relative;
+    padding-right: 0.5rem;
+  }
+  
+  .titleheader {
+    font-size: xx-large;
+    font-family: "Open Sans";
+    color: #df49a6;
+    text-shadow: 1px 1px 1px #000000;
+  }
+  
+  #content2 {
+    color: #df49a6;
+  }
+  
+  .sizechart {
+    background-color: rgba(255, 255, 255, 1);
+    border: px rgba(0, 0, 0, 1) solid;
+    border-radius: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+  
+  

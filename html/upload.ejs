@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <%- include('../ejs/partials/head.ejs') %>
+
+    <link rel="stylesheet" href="uploader/main.css" />
+    <link rel="stylesheet" href="uploader/grid.css" />
   
     <title>
       dragongooseCDN - uploader
@@ -13,40 +16,65 @@
     <%- include('../ejs/page/navbar.ejs') %>
 
     <main>
-      <label for="file_photo">Photo:</label>
 
-      <input type="file" name="sampleFile" id="file_photo" /><br />
-      <button type="submit" role="button" id="submit">Submit</button>
 
-      <script>
-        const form = document.getElementById("file_photo");
-        const sumbit = document.getElementById("submit");
+      <!--
+        You see this div with the class container, right?
+        Wether you are contributing or snooping the code,
+        i would like to tell you my struggle about this div.
+        It took me 1.30 hours, messing with the CSS and HTML,
+        looking at stack overflow to see what the hell was wrong.
+        I've came to realize. I forgot to add this 1 div, making the 
+        whole thing not work. 
+        Thanks for coming to my speech.
+        - Dragonshadow14
+      -->
+      <div class="container">
 
-        sumbit.addEventListener("click", () => {
-          async function sendData(url, data) {
-            const formData = new FormData();
+        <titlebar class="titleheader">
+          Uploader
+        </titlebar>
+        <maincontent>
+          <label for="file_photo">Photo:</label>
 
-            formData.append("sampleFile", data);
-
-            console.log(data);
-
-            fetch(url, {
-              method: "POST",
-              body: formData,
-              headers: {
-                api_key: "fPP1iQeqDu",
-              },
-            })
-              .then((response) => response.text())
-              .then((data) => {
+          <input type="file" name="sampleFile" id="file_photo" /><br />
+          <button type="submit" role="button" id="submit">Submit</button>
+    
+          <script>
+            const form = document.getElementById("file_photo");
+            const sumbit = document.getElementById("submit");
+    
+            sumbit.addEventListener("click", () => {
+              async function sendData(url, data) {
+                const formData = new FormData();
+    
+                formData.append("sampleFile", data);
+    
                 console.log(data);
-              });
+    
+                fetch(url, {
+                  method: "POST",
+                  body: formData,
+                  headers: {
+                    api_key: "fPP1iQeqDu",
+                  },
+                })
+                  .then((response) => response.text())
+                  .then((data) => {
+                    console.log(data);
+                  });
+    
+                // ...
+              }
+              sendData("http://localhost:1816/upload", form.files[0]);
+            });
+          </script>
+        </maincontent>
+        <footer>
+          <%- include('../ejs/partials/footer.ejs') %>
+        </footer>
+      </div>
 
-            // ...
-          }
-          sendData("http://localhost:1816/upload", form.files[0]);
-        });
-      </script>
     </main>
   </body>
 </html>
