@@ -92,6 +92,14 @@ app.post('/upload', function (req, res) {
     sampleFile.mv(__dirname + '/uploads/' + req.header("api_key") + '/' + filename, function (err) {
       if (err) return res.sendStatus(500).send(err);
 
+      var filejson = {};
+
+      const stats = fs.statSync(`${__dirname}/uploads/${req.header('api_key')}/${filename}`);
+
+      filejson.name = filename
+      filejson.uploadtime = new Date.now();
+      filejson.size = stats.size
+
       res.send(`https://${config.domain}/uploads/${filename}`);
 
     });
@@ -147,6 +155,8 @@ io.on('connection', function (socket) {
   var stats = fs.readFileSync(`${__dirname}/stats/stats.stats`, { encoding: 'utf8', flag: 'r' });
 
   socket.emit('chartjson', stats)
+
+
 
   //setInterval(function(){ socket.emit('chartjson', stats) },1000) //send chart data frequently, so the client can update the chart if needed/
 
