@@ -36,10 +36,12 @@
           Uploader
         </titlebar>
         <maincontent>
-          <label for="file_photo">Photo:</label>
+          <label for="file_photo">File:</label>
 
           <input type="file" name="sampleFile" id="file_photo" /><br />
           <button type="submit" role="button" id="submit">Submit</button>
+
+          <p id="result">Waiting to send file.</p>
     
           <script>
             const form = document.getElementById("file_photo");
@@ -52,22 +54,22 @@
                 formData.append("sampleFile", data);
     
                 console.log(data);
+
+                document.getElementById('result').innerText = 'Sending file.'
     
-                fetch(url, {
+                const asd = await fetch(url, {
                   method: "POST",
                   body: formData,
                   headers: {
-                    api_key: "fPP1iQeqDu",
+                    api_key: "REDACTED",
                   },
                 })
-                  .then((response) => response.text())
-                  .then((data) => {
-                    console.log(data);
-                  });
+
+                return asd.text();
     
                 // ...
               }
-              sendData("http://localhost:1816/upload", form.files[0]);
+             sendData(`http://cdn.dragongoose.xyz/upload`, form.files[0]).then(asd => {document.getElementById('result').innerText = asd})
             });
           </script>
         </maincontent>
