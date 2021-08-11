@@ -100,6 +100,10 @@ app.post('/upload', function (req, res) {
   main()
 });
 
+app.get('/upload', function (req, res) {
+  res.render(`${__dirname}/html/upload.ejs`)
+})
+
 // Give Index.html for visitors
 app.get('/', function (req, res) {
 
@@ -142,7 +146,7 @@ io.on('connection', function (socket) {
 
   socket.emit('chartjson', stats)
 
-  setInterval(function(){ socket.emit('chartjson', stats) },1000) //send chart data frequently, so the client can update the chart if needed/
+  //setInterval(function(){ socket.emit('chartjson', stats) },1000) //send chart data frequently, so the client can update the chart if needed/
 
   console.log('socket connection');
 
