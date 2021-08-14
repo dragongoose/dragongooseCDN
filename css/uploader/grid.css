@@ -35,7 +35,7 @@
   }
   
   footer {
-    color: #df49a6;
+    color: #BE007F;
     grid-area: footer;
     border-radius: var(--main-radius);
     padding-top: var(--main-padding);

@@ -27,7 +27,7 @@ socket.on("chartjson", (data) => {
 
     var ctx = document.getElementById('myChart').getContext('2d');
 
-    Chart.defaults.global.defaultFontColor = "#df49a6";
+    Chart.defaults.global.defaultFontColor = "#BE007F";
     //Chart.defaults.global.defaultFontStyle = 'Bold'
 
 
@@ -85,10 +85,10 @@ socket.on("chartjson", (data) => {
             tooltips: {
                 intersect: false,
                 backgroundColor: "#141418",
-                titleFontColor: "#df49a6",
+                titleFontColor: "#BE007F",
                 titleFontFamily: "Merriweather Sans",
                 titleFontSize: 14,
-                bodyFontColor: "#df49a6",
+                bodyFontColor: "#BE007F",
                 bodyFontFamily: "Lato",
                 cornerRadius: 3,
             },

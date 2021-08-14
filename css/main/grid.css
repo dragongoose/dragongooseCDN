@@ -37,7 +37,7 @@ maincontent {
 #content1 {
   background: #23232e;
   grid-area: content1;
-  color: #df49a6;
+  color: #BE007F;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
 }
@@ -57,7 +57,7 @@ maincontent {
 }
 
 footer {
-  color: #df49a6;
+  color: #BE007F;
   grid-area: footer;
   border-radius: var(--main-radius);
   padding-top: var(--main-padding);
