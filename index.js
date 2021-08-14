@@ -35,6 +35,7 @@ const limiter = rateLimit({
 
 //  apply to all requests
 app.use(limiter);
+app.set('trust proxy', 1); //For Rproxy
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(fileUpload());
