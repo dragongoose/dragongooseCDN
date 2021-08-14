@@ -39,10 +39,10 @@ socket.on("chartjson", (data) => {
             datasets: [
                 {
                     data: chartdata,
-                    backgroundColor: "#fa14e7",
-                    borderColor: "#df49a6",
-                    pointBackgroundColor: "#db34d3",
-                    pointBorderColor: "#ab4aa6",
+                    backgroundColor: "#BE007F",
+                    borderColor: "#BE007F",
+                    pointBackgroundColor: "#BE007F",
+                    pointBorderColor: "#BE007F",
                     label: "Size (MB)",
                 },
             ]
