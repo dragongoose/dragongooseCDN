@@ -37,7 +37,7 @@ function run() {
         var statsarray = fs.readFileSync(`${dir}stats.stats`, { encoding: 'utf8', flag: 'r' });
         var statsarray = JSON.parse(statsarray);
 
-        if (statsarray.length == 12) {
+        if (statsarray.length == 20) {
             statsarray.splice(0,1);
 
         };
