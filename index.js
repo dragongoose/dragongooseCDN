@@ -98,7 +98,7 @@ app.post('/upload', function (req, res) {
       const stats = fs.statSync(`${__dirname}/uploads/${req.header('api_key')}/${filename}`);
 
       filejson.name = filename
-      filejson.uploadtime = new Date.now();
+      filejson.uploadtime = Date.now();
       filejson.size = stats.size
 
       res.send(`https://${config.domain}/uploads/${filename}`);
